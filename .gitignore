@@ -7,3 +7,6 @@ __pycache__/
 
 # IDE-specific configuration
 .vscode/
+
+# PDF files (used for testing)
+*.pdf
