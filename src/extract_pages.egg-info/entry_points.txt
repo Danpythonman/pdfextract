@@ -1,0 +1,2 @@
+[console_scripts]
+my-tool-cli = pdfextract.cli:main2
