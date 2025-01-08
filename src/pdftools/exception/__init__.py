@@ -1,3 +1,8 @@
+'''
+Exceptions to be used throughout pdftools.
+'''
+
+
 from pathlib import Path
 
 

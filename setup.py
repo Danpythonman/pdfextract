@@ -2,19 +2,19 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name="pdfextract",
+    name="pdftools",
     version="1.0.0",
     packages=find_packages(where="src"),
     package_dir={'': 'src'},
     install_requires=['pypdf'],
     entry_points={
         "console_scripts": [
-            "pdfextract=pdfextract.interface.cli:main",
+            "pdftools=pdftools.interface.cli:main",
         ]
     },
     author="Daniel Di Giovanni",
     author_email="dannyjdigio@gmail.com",
-    description="Extract pages from a PDF.",
+    description="PDF tools.",
     url="https://github.com/Danpythonman/pdfextract",
     classifiers=[
         "Programming Language :: Python :: 3",

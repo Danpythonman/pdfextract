@@ -1,6 +1,6 @@
 # Pip build output
 build/
-pdfextract.egg-info/
+pdftools.egg-info/
 
 # Python-generated files
 __pycache__/

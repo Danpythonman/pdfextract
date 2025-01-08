@@ -1,9 +1,15 @@
+'''
+Module for extracting pages from a PDF.
+'''
+
+
 from pathlib import Path
 from typing import List, Optional
-from pdfextract.utils import generate_unique_filename
-from pdfextract.exception import \
+
+from pdftools.exception import \
     PyPDFNotFoundException, \
     ParentDirectoryDoesNotExistException
+from pdftools.utils import generate_unique_filename
 
 try:
     from pypdf import PdfReader, PdfWriter
@@ -16,6 +22,19 @@ def extract_pages(
         pages_to_keep: List[int],
         output_pdf_path: Optional[Path] = None
 ) -> Path:
+    '''
+    Extracts pages from a PDF and generates a new PDF with just the extracted
+    pages.
+
+    :param input_pdf_path: The path of the input PDF file.
+
+    :param pages_to_keep: A list of page numbers to extract from the input PDF.
+
+    :param output_pdf_path: The path to write the output PDF to.
+
+    :return: The path of the generated PDF.
+    '''
+
     reader = PdfReader(input_pdf_path)
     writer = PdfWriter()
 

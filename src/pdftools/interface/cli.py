@@ -1,29 +1,52 @@
 import argparse
 from pathlib import Path
 from typing import List
-from pdfextract.extract import extract_pages
+
+from pdftools.extract import extract_pages
 
 
-def validate_page_list(value):
-    '''Validate a single page number or a list of page numbers.'''
-    pages = [int(x) for x in value.split(',') if x.strip().isdigit()]
+def validate_page_list(page_numbers: str) -> List[int]:
+    '''
+    Validate a single page number or a list of page numbers.
+
+    :param page_numbers: A string of comma-separated numbers.
+
+    :return: The list of page numbers parsed into a list of integers.
+
+    :raises argparse.ArgumentTypeError: If any of the numbers are negative.
+    '''
+
+    pages = [int(x) for x in page_numbers.split(',') if x.strip().isdigit()]
     if any(p <= 0 for p in pages):
-        raise argparse.ArgumentTypeError('All page numbers must be positive integers.')
+        raise argparse.ArgumentTypeError(
+            'All page numbers must be positive integers.'
+        )
     return pages
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Extracts page(s) from a PDF.'
+        description='PDF tools.'
     )
 
-    parser.add_argument(
+    subparsers = parser.add_subparsers(
+        title='subcommands',
+        dest='command',
+        required=True
+    )
+
+    parser_extract = subparsers.add_parser(
+        'extract',
+        help='Extracts pages from a PDF.'
+    )
+
+    parser_extract.add_argument(
         'filename',
         type=str,
         help='The name of the file to process.'
     )
 
-    parser.add_argument(
+    parser_extract.add_argument(
         'page_list',
         type=validate_page_list,
         nargs='?',
@@ -31,7 +54,7 @@ def main():
             '(e.g., 1,5,8,9).'
     )
 
-    group = parser.add_mutually_exclusive_group()
+    group = parser_extract.add_mutually_exclusive_group()
     group.add_argument(
         '-r',
         '--range',
@@ -48,7 +71,7 @@ def main():
             '(e.g., 1,5,8,9).'
     )
 
-    parser.add_argument(
+    parser_extract.add_argument(
         '-o',
         '--outfile',
         type=str,
