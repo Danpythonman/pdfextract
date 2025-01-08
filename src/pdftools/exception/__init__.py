@@ -31,3 +31,16 @@ class ParentDirectoryDoesNotExistException(Exception):
                 'exist. Please make the directories with\n\n'
                 f'mkdir -p {path.parent.absolute()}'
         )
+
+
+class PageNumberOutOfBoundsException(Exception):
+    '''
+    Exception representing the scenario where the user specified a page number
+    that is not in the PDF file.
+    '''
+
+    def __init__(self, path: Path, page_number: int):
+        super().__init__(
+            f'Page number {page_number} does not exist in PDF file '
+                f'{path.absolute()}'
+        )

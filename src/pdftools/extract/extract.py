@@ -7,8 +7,9 @@ from pathlib import Path
 from typing import List, Optional
 
 from pdftools.exception import \
-    PyPDFNotFoundException, \
-    ParentDirectoryDoesNotExistException
+    PageNumberOutOfBoundsException, \
+    ParentDirectoryDoesNotExistException, \
+    PyPDFNotFoundException
 from pdftools.utils import generate_unique_filename
 
 try:
@@ -39,7 +40,9 @@ def extract_pages(
     writer = PdfWriter()
 
     for i in pages_to_keep:
-        p = reader.pages[i]
+        if i-1 >= len(reader.pages):
+            raise PageNumberOutOfBoundsException(input_pdf_path, i)
+        p = reader.pages[i-1]
         writer.add_page(p)
 
     if not output_pdf_path:
