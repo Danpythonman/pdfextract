@@ -65,6 +65,8 @@ def run_pdftools_cli():
         extract_pdf_pages(parser, args)
     elif args.command == 'merge':
         merge_pdf_files(parser, args)
+    elif args.command == 'image':
+        pass
     else:
         raise argparse.ArgumentError(
             f'Invalid subcommand {args.command}, must be either extract or '
